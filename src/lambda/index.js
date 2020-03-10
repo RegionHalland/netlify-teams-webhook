@@ -85,7 +85,7 @@ export async function handler(event, context) {
       };
       break;
 
-    case "failed" || "fail":
+    case "error":
       payload = {
         ...originalPayload,
         themeColor: "b01229",
