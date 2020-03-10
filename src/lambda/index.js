@@ -1,8 +1,9 @@
-const fetch = require("node-fetch").default;
+import axios from "axios";
 require("dotenv").config();
 
 export async function handler(event, context) {
   const method = event.httpMethod;
+  console.log("event", event);
 
   // See if the http method is POST
   if (method !== "POST") {
@@ -105,14 +106,8 @@ export async function handler(event, context) {
   console.log("payload to send to teams", payload);
 
   // Send payload to Teams Incoming Webhook
-  const res = await fetch(process.env.TEAMS_ENDPOINT, {
-    method: "post",
-    body: JSON.stringify(payload),
-    headers: { "Content-Type": "application/json" }
-  });
-
-  const jsonRes = await res.json();
-  console.log("jsonRes", jsonRes);
+  const res = await axios.post(process.env.TEAMS_ENDPOINT, payload);
+  console.log("res", res);
 
   return {
     statusCode: 200,
